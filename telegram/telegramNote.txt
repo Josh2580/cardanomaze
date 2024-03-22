@@ -1,0 +1,7 @@
+You'll need to tell Telegram where to send updates. Use the setWebhook method by calling the Telegram Bot API. You can do this with a simple curl command:
+
+"""
+curl -F "url=https://yourdomain.com/telegram_webhook/" https://api.telegram.org/bot<YourBotToken>/setWebhook
+"""
+
+Replace https://yourdomain.com/telegram_webhook/ with your actual webhook URL and <YourBotToken> with your bot's token.
