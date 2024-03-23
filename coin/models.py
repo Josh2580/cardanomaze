@@ -10,7 +10,7 @@ class Mining(models.Model):
     time_clicked = models.DateTimeField()
     first_click = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)
-    mineral_extracted = models.CharField(max_length=50, default="")
+    mineral_extracted = models.CharField(max_length=50, null=True, blank=True)
     extraction_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
