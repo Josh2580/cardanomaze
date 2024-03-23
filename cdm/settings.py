@@ -145,8 +145,8 @@ STATIC_URL = 'static/'
 CORS_ALLOWED_ORIGINS = [
 
     "http://localhost:5173",
-    "cardanomaze.onrender.com",
-    "https://cdmcrypto.netlify.app/",
+    "https://cardanomaze.onrender.com",
+    "https://cdmcrypto.netlify.app",
 ]
 
 # Default primary key field type
