@@ -26,30 +26,83 @@ class TelegramUserViewSet(viewsets.ModelViewSet):
 def set_telegram_webhook(request):
     TELEGRAM_BOT_TOKEN = '6637720245:AAGLltaPLybSJxuXWkZDthbN92TSOLwQUvA'
     WEBHOOK_URL = 'https://cardanomaze.onrender.com/telegram_webhook/'
-    url = f'https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/setWebhook'
-    if request.method == 'POST':
-        message = request.data.get('message', {})
-        user_info = message.get('from', {})
-        telegram_id = user_info.get('id')
-        username = user_info.get('username')
-        first_name = user_info.get('first_name')
-        last_name = user_info.get('last_name')
-        telegram_user = TelegramUser.objects.create(
-            username=username,
-            first_name=first_name,
-            last_name=last_name,
-            telegram_id=telegram_id
-        )
-        serializer = TelegramUserSerializer(data=telegram_user)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, {'status': 'ok'}, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    # url = f'https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/setWebhook'
+    updates_url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/getUpdates"
+
+    response = requests.get(updates_url)  # Making a GET request to get updates.
+    if response.status_code == 200:
+        updates = response.json().get("result", [])
+        for update in updates:
+            message = update.get("message", {})
+            user = message.get("from", {})
+            if user:  # Check if user info is present
+                # Assuming `TelegramUserSerializer` expects all these fields.
+                serializer = TelegramUserSerializer(data={
+                    "username": user.get("username", ""),
+                    "first_name": user.get("first_name"),
+                    "last_name": user.get("last_name", ""),
+                    "telegram_id": user.get("id"),
+                })
+                if serializer.is_valid():
+                    serializer.save()  # This saves the model instance.
+                    return Response(serializer.data, status=status.HTTP_201_CREATED)
+                else:
+                    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'status': 'ok'}, status=status.HTTP_201_CREATED)
+    else:
+        return Response({'error': 'Failed to fetch updates'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+   
+
+
+    # updates = response.json().get("result", [])
+    # for update in updates:
+    #     message = update.get("message", {})
+    #     user = message.get("from", {})
+    #     user_info = {
+    #         "user_id": user.get("id"),
+    #         "is_bot": user.get("is_bot"),
+    #         "first_name": user.get("first_name"),
+    #         "last_name": user.get("last_name", ""),
+    #         "username": user.get("username", ""),
+    #         "language_code": user.get("language_code", "")
+    #     }
+    #     telegram_user = TelegramUser.objects.create(
+    #         username=user.get("username", ""),
+    #         first_name=user.get("first_name"),
+    #         last_name=user.get("last_name", ""),
+    #         telegram_id=user.get("id"),
+    #     )
+    #     serializer = TelegramUserSerializer(data=telegram_user)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data, {'status': 'ok'}, status=status.HTTP_201_CREATED)
+    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        # print(user_info)
+    # if request.method == 'POST':
+    #     message = request.data.get('message', {})
+    #     user_info = message.get('from', {})
+    #     telegram_id = user_info.get('id')
+    #     username = user_info.get('username')
+    #     first_name = user_info.get('first_name')
+    #     last_name = user_info.get('last_name')
+    #     telegram_user = TelegramUser.objects.create(
+    #         username=username,
+    #         first_name=first_name,
+    #         last_name=last_name,
+    #         telegram_id=telegram_id
+    #     )
+    #     serializer = TelegramUserSerializer(data=telegram_user)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data, {'status': 'ok'}, status=status.HTTP_201_CREATED)
+    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         # return Response({'status': 'ok', 'data': request.data}, status=status.HTTP_200_OK)
-    response = requests.post(url, data={'url': WEBHOOK_URL})
-    response_data = response.json()
-    response.raise_for_status()
-    return Response(response_data)
+    # response = requests.post(url, data={'url': WEBHOOK_URL})
+    # response_data = response.json()
+    # response.raise_for_status()
+    # return Response(response_data)
 
 
 
