@@ -9,6 +9,9 @@ from coin.models import Mining
 from rest_framework.response import Response
 from .payment import create_invoice_func
 import requests
+from rest_framework import status
+from rest_framework.decorators import api_view
+
 
 
 
@@ -19,7 +22,7 @@ class TelegramUserViewSet(viewsets.ModelViewSet):
     # lookup_field = 'telegram_id'
 
 
-@csrf_exempt
+@api_view(['GET'])
 def set_telegram_webhook(request):
     TELEGRAM_BOT_TOKEN = '6637720245:AAGLltaPLybSJxuXWkZDthbN92TSOLwQUvA'
     WEBHOOK_URL = 'https://cardanomaze.onrender.com/telegram_webhook/'
@@ -27,7 +30,9 @@ def set_telegram_webhook(request):
     response = requests.post(url, data={'url': WEBHOOK_URL})
     response_data = response.json()
     response.raise_for_status()
-    return Response(response_data)        
+    return Response(response_data)
+
+
 
 
 @csrf_exempt
