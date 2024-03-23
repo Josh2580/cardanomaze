@@ -27,6 +27,25 @@ def set_telegram_webhook(request):
     TELEGRAM_BOT_TOKEN = '6637720245:AAGLltaPLybSJxuXWkZDthbN92TSOLwQUvA'
     WEBHOOK_URL = 'https://cardanomaze.onrender.com/telegram_webhook/'
     url = f'https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/setWebhook'
+    if request.method == 'POST':
+        message = request.data.get('message', {})
+        user_info = message.get('from', {})
+        telegram_id = user_info.get('id')
+        username = user_info.get('username')
+        first_name = user_info.get('first_name')
+        last_name = user_info.get('last_name')
+        telegram_user = TelegramUser.objects.create(
+            username=username,
+            first_name=first_name,
+            last_name=last_name,
+            telegram_id=telegram_id
+        )
+        serializer = TelegramUserSerializer(data=telegram_user)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, {'status': 'ok'}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        # return Response({'status': 'ok', 'data': request.data}, status=status.HTTP_200_OK)
     response = requests.post(url, data={'url': WEBHOOK_URL})
     response_data = response.json()
     response.raise_for_status()
