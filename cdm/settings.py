@@ -146,7 +146,7 @@ CORS_ALLOWED_ORIGINS = [
 
     "http://localhost:5173",
     "cardanomaze.onrender.com",
-    "cdmcrypto.netlify.app",
+    "https://cdmcrypto.netlify.app/",
 ]
 
 # Default primary key field type
