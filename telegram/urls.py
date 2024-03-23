@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import TelegramUserViewSet, telegram_update, OrderViewSet
+from .views import TelegramUserViewSet, telegram_update, set_telegram_webhook, OrderViewSet
 from rest_framework_nested import routers
 
 
@@ -20,5 +20,5 @@ user_router.register('order', OrderViewSet,
 urlpatterns = [
     path('', include(router.urls)),
     path('', include(user_router.urls)),
-    path('webhook/', telegram_update, name='telegram_webhook'),
+    path('webhook/', set_telegram_webhook, name='telegram_webhook'),
 ]
