@@ -20,7 +20,7 @@ class TelegramUserViewSet(viewsets.ModelViewSet):
 
 
 @csrf_exempt
-def set_telegram_webhook():
+def set_telegram_webhook(request):
     TELEGRAM_BOT_TOKEN = '6637720245:AAGLltaPLybSJxuXWkZDthbN92TSOLwQUvA'
     WEBHOOK_URL = 'https://cardanomaze.onrender.com/telegram_webhook/'
     url = f'https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/setWebhook'
