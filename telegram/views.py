@@ -18,6 +18,14 @@ class TelegramUserViewSet(viewsets.ModelViewSet):
     # lookup_field = 'telegram_id'
 
 
+# def set_telegram_webhook():
+#     TELEGRAM_BOT_TOKEN = 'your_bot_token_here'
+#     WEBHOOK_URL = 'https://yourdomain.com/telegram_webhook/'
+#     url = f'https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/setWebhook'
+#     response = requests.post(url, data={'url': WEBHOOK_URL})
+#     print(response.text)  # For debugging purposes
+
+
 @csrf_exempt
 def telegram_update(request):
     if request.method == "POST":
