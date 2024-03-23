@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-0n%!=@cc3+zu)!nc8)2eoir%a$3qa_5ams168e*x&gva@0eg#o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["cardanomaze.onrender.com", "cdmcrypto.netlify.app",]
 
 
 # Application definition
@@ -145,6 +145,8 @@ STATIC_URL = 'static/'
 CORS_ALLOWED_ORIGINS = [
 
     "http://localhost:5173",
+    "cardanomaze.onrender.com",
+    "cdmcrypto.netlify.app",
 ]
 
 # Default primary key field type
