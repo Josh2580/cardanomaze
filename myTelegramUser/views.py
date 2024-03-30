@@ -26,8 +26,9 @@ class TelegramUserViewSet(viewsets.ModelViewSet):
 
 @api_view(['GET'])
 def set_telegram_webhook(request):
-    TELEGRAM_BOT_TOKEN = '6637720245:AAGLltaPLybSJxuXWkZDthbN92TSOLwQUvA'
-    WEBHOOK_URL = 'https://cardanomaze.onrender.com/telegram_webhook/'
+    print("request")
+    # TELEGRAM_BOT_TOKEN = '6637720245:AAGLltaPLybSJxuXWkZDthbN92TSOLwQUvA'
+    # WEBHOOK_URL = 'https://cardanomaze.onrender.com/telegram_webhook/'
     # url = f'https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/setWebhook'
     # updates_url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/getUpdates"
     # updates_url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/getMe"

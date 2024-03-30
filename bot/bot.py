@@ -78,4 +78,3 @@ def main() -> None:
 print("my botssss")
 if __name__ == "__main__":
     main()
-    print("end file Noiw working")
