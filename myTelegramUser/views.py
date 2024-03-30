@@ -11,6 +11,8 @@ from .payment import create_invoice_func
 import requests
 from rest_framework import status
 from rest_framework.decorators import api_view
+##
+
 
 
 
@@ -28,6 +30,7 @@ def set_telegram_webhook(request):
     WEBHOOK_URL = 'https://cardanomaze.onrender.com/telegram_webhook/'
     # url = f'https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/setWebhook'
     updates_url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/getUpdates"
+    # updates_url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/getMe"
 
     response = requests.get(updates_url)  # Making a GET request to get updates.
     if response.status_code == 200:

@@ -7,3 +7,4 @@ class MiningAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Mining, MiningAdmin)
+# admin.site.register(Mining)

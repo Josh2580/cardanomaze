@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from telegram.models import TelegramUser
+from myTelegramUser.models import TelegramUser
 
 
 class Mining(models.Model):
