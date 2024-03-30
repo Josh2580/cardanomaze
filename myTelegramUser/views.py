@@ -130,11 +130,6 @@ def telegram_update(request):
 
 
 
-    
-    # return initiate_payment(amount, email, order_id)
-    # return Response(initiate_payment(amount, email, order_id))
-
-
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
