@@ -8,6 +8,7 @@ class TelegramUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = TelegramUser
         fields = ['id', 'username', 'first_name', 'last_name', 'telegram_id', 'user_coin']
+        # fields = ['id', 'username', 'first_name', 'last_name', 'telegram_id']
 
 
 class OrderSerializer(serializers.ModelSerializer):

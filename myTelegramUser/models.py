@@ -24,7 +24,7 @@ class TelegramUser(models.Model):
 
 
 class Order(models.Model):
-    user = models.ForeignKey(TelegramUser, related_name='user_order', on_delete=models.SET_NULL, null=True, blank=True)
+    # user = models.ForeignKey(TelegramUser, related_name='user_order', on_delete=models.SET_NULL, null=True, blank=True)
     fiat_amount = models.DecimalField(max_digits=15, default="3.00", decimal_places=2)
     fiat_currency = models.CharField(max_length=50, default="usd")
     crypto_currency = models.CharField(max_length=50, default="ADA")

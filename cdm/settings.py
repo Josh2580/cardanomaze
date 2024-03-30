@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "coin",
-    "telegram",
+    "myTelegramUser",
     "rest_framework",
     "corsheaders",
 ]
