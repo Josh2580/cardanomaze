@@ -26,35 +26,35 @@ class TelegramUserViewSet(viewsets.ModelViewSet):
 
 @api_view(['GET'])
 def set_telegram_webhook(request):
-    print("request")
-    # TELEGRAM_BOT_TOKEN = '6637720245:AAGLltaPLybSJxuXWkZDthbN92TSOLwQUvA'
+    # print("request")
+    TELEGRAM_BOT_TOKEN = '6637720245:AAGLltaPLybSJxuXWkZDthbN92TSOLwQUvA'
     # WEBHOOK_URL = 'https://cardanomaze.onrender.com/telegram_webhook/'
     # url = f'https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/setWebhook'
-    # updates_url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/getUpdates"
+    updates_url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/getUpdates"
     # updates_url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/getMe"
 
-    # response = requests.get(updates_url)  # Making a GET request to get updates.
-    # if response.status_code == 200:
-    #     updates = response.json().get("result", [])
-    #     for update in updates:
-    #         message = update.get("message", {})
-    #         user = message.get("from", {})
-    #         if user:  # Check if user info is present
-    #             # Assuming `TelegramUserSerializer` expects all these fields.
-    #             serializer = TelegramUserSerializer(data={
-    #                 "username": user.get("username", ""),
-    #                 "first_name": user.get("first_name"),
-    #                 "last_name": user.get("last_name", ""),
-    #                 "telegram_id": user.get("id"),
-    #             })
-    #             if serializer.is_valid():
-    #                 serializer.save()  # This saves the model instance.
-    #                 return Response(serializer.data, status=status.HTTP_201_CREATED)
-    #             else:
-    #                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    #     return Response({'status': 'ok'}, status=status.HTTP_201_CREATED)
-    # else:
-    #     return Response({'error': 'Failed to fetch updates'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    response = requests.get(updates_url)  # Making a GET request to get updates.
+    if response.status_code == 200:
+        updates = response.json().get("result", [])
+        for update in updates:
+            message = update.get("message", {})
+            user = message.get("from", {})
+            if user:  # Check if user info is present
+                # Assuming `TelegramUserSerializer` expects all these fields.
+                serializer = TelegramUserSerializer(data={
+                    "username": user.get("username", ""),
+                    "first_name": user.get("first_name"),
+                    "last_name": user.get("last_name", ""),
+                    "telegram_id": user.get("id"),
+                })
+                if serializer.is_valid():
+                    serializer.save()  # This saves the model instance.
+                    return Response(serializer.data, status=status.HTTP_201_CREATED)
+                else:
+                    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'status': 'ok'}, status=status.HTTP_201_CREATED)
+    else:
+        return Response({'error': 'Failed to fetch updates'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
    
